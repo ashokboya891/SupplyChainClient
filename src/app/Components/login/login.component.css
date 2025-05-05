@@ -1,0 +1,116 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 2rem;
+  
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      border-radius: 12px;
+      overflow: hidden;
+  
+      .p-card-header {
+        text-align: center;
+        padding: 2rem 2rem 1rem;
+        background: linear-gradient(135deg, #3f51b5 0%, #2196F3 100%);
+        color: white;
+  
+        .logo {
+          height: 50px;
+          margin-bottom: 1rem;
+        }
+  
+        h1 {
+          margin: 0.5rem 0 0;
+          font-size: 1.5rem;
+          font-weight: 600;
+        }
+  
+        .subtitle {
+          opacity: 0.8;
+          margin: 0.25rem 0 0;
+          font-size: 0.875rem;
+        }
+      }
+  
+      .p-card-content {
+        padding: 2rem;
+  
+        .p-field {
+          margin-bottom: 1.5rem;
+  
+          label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #495057;
+          }
+  
+          .p-input-icon-left, .p-input-icon-right {
+            width: 100%;
+  
+            i {
+              color: #6c757d;
+            }
+  
+            i.pi-eye, i.pi-eye-slash {
+              cursor: pointer;
+              &:hover {
+                color: #3f51b5;
+              }
+            }
+          }
+        }
+  
+        .divider {
+          display: flex;
+          align-items: center;
+          margin: 1.5rem 0;
+          color: #6c757d;
+  
+          &::before, &::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e9ecef;
+          }
+  
+          span {
+            padding: 0 1rem;
+            font-size: 0.875rem;
+          }
+        }
+  
+        .social-login {
+          display: flex;
+          justify-content: center;
+          gap: 1rem;
+          margin-bottom: 1.5rem;
+  
+          button {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+  
+            &:hover {
+              background-color: #f8f9fa !important;
+            }
+          }
+        }
+  
+        a {
+          color: #3f51b5;
+          text-decoration: none;
+          transition: color 0.2s;
+  
+          &:hover {
+            color: #303f9f;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }

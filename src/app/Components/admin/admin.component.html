@@ -1,0 +1,41 @@
+<!-- Admin Dashboard Banner -->
+<section class="admin-banner">
+    <div class="admin-banner-content">
+      <h2>Admin Dashboard</h2>
+      <p>Manage products, restock inventory, and monitor stock levels</p>
+    </div>
+  </section>
+  
+  <!-- Loading Indicator -->
+  <p *ngIf="loading" class="loading-text">Loading admin data...</p>
+  
+  <!-- Product Table for Admin -->
+  <section class="admin-products" *ngIf="products && products.length > 0">
+    <p-card header="Inventory Management" class="admin-card">
+      <p-table [value]="products" [paginator]="true" [rows]="5" [responsiveLayout]="'scroll'">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Product Name</th>
+            <th>Stock</th>
+            <th>Reorder Level</th>
+            <th>Actions</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+          <tr>
+            <td>{{ product.productName }}</td>
+            <td>{{ product.stock }}</td>
+            <td>{{ product.reorderLevel }}</td>
+            <td>
+              <button pButton icon="pi pi-refresh" label="Restock" class="p-button-warning"></button>
+              <button pButton icon="pi pi-trash" class="p-button-danger" style="margin-left: 5px;"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-card>
+  </section>
+  
+  <!-- No Products Message -->
+  <p *ngIf="products.length === 0" class="no-products-text">No products found in inventory.</p>
+  

@@ -1,45 +1,47 @@
 import { Component } from '@angular/core';
-import { AccountService } from './Service/account.service';
-import { NavigationEnd, Router } from '@angular/router';
-import { NotificationService } from './Service/notification.service';
-import { AuthService } from './_guards/Auth';
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
-})
-export class AppComponent {
-  title = 'scClient';
+import { Router } from '@angular/router';
+// import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from 'src/app/_guards/Auth';
+import { AccountService } from 'src/app/Service/account.service';
+import { NotificationService } from 'src/app/Service/notification.service';
 
+@Component({
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.css']
+})
+export class NavbarComponent {
+ title = "Nestles Wendor Shoppy";
   greetingMessage: string = '';
   marketStatus: string = '';
-  constructor( public accountService: AccountService, private router: Router,
-    private notification:NotificationService,private authService:AuthService) { 
-  
+  constructor(public accountService: AccountService, private router: Router,private notification:NotificationService,private authService:AuthService) { 
+    const savedLang = localStorage.getItem('lang') || 'en';
+    // this.translate.setDefaultLang(savedLang);
+    // this.translate.use(savedLang);
   }
+  switchLanguage(lang: string) {
+    // this.translate.use(lang);
+    localStorage.setItem('lang', lang);
+  }
+  
+  
   ngOnInit() {
     this.updateGreeting();
     this.checkMarketStatus();
-    // Log navigation events
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        const userName = this.accountService.currentUserName || 'anonymous';
-
-        // let userName = (this.loginService.currentUserName) ? this.loginService.currentUserName : "anonymous";
-        let logMsg = new Date().toLocaleString() + ": " + userName + " navigates to " + event.url;
-        // this.routerLoggerService.log(logMsg).subscribe();
-        
-        console.log(
-          `${new Date().toLocaleString()}: ${userName} navigates to ${event.url}`
-        );
-      }
-      
-    });
   }
 
   isUserLoggedIn(): boolean {
     return !!localStorage.getItem('email');
   }
+  showCartDropdown = false;
+
+toggleCartDropdown() {
+  this.showCartDropdown = !this.showCartDropdown;
+}
+
+closeDropdowns() {
+  this.showCartDropdown = false;
+}
 
   getUserName(): string | null {
     return localStorage.getItem('email');
@@ -68,9 +70,9 @@ export class AppComponent {
       const day = istTime.getUTCDay(); // 0 = Sunday, 6 = Saturday
   
       if (day === 0 || day === 6) {
-        this.marketStatus = 'Stock Market Closed (Crypto Trading Only)';
+        this.marketStatus = 'Weekend sale Started..!';
       } else {
-        this.marketStatus = 'Stock Market Open';
+        this.marketStatus = ' Heavy discounts on all products';
       }
     }
   onLogOutClicked() {

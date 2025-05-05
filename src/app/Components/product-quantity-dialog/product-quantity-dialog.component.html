@@ -1,0 +1,25 @@
+<!-- product-quantity-dialog.component.html -->
+<p-dialog header="Add to Cart" [(visible)]="display" [modal]="true" [style]="{width: '350px'}" (onHide)="close()">
+    <div class="product-details">
+      <h3>{{product?.productName}}</h3>
+      <p><strong>Price:</strong> {{product?.unitPrice | currency}}</p>
+      <p><strong>Category:</strong> {{product?.stock}}</p>
+    </div>
+  
+    <div class="quantity-input">
+      <label for="quantity">Quantity:</label>
+      <p-inputNumber 
+        [(ngModel)]="quantity" 
+        [min]="1" 
+        [max]="100" 
+        mode="decimal" 
+        [showButtons]="true" 
+        inputId="quantity">
+      </p-inputNumber>
+    </div>
+  
+    <ng-template pTemplate="footer">
+      <button pButton type="button" label="Cancel" icon="pi pi-times" (click)="close()" class="p-button-text"></button>
+      <button pButton type="button" label="Add to Cart" icon="pi pi-check" (click)="addToCart()" class="p-button-success"></button>
+    </ng-template>
+  </p-dialog>

@@ -1,0 +1,19 @@
+.product-details {
+    margin-bottom: 1rem;
+  }
+  
+  .product-details h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+  }
+  
+  .quantity-input {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  
+  .quantity-input label {
+    font-weight: 500;
+  }

@@ -1,0 +1,51 @@
+<!-- Shop Header Banner -->
+ <!-- Add this near the top of your template -->
+ 
+ <!-- Dialog (conditionally shown) -->
+<app-product-quantity-dialog 
+*ngIf="selectedProduct"
+[product]="selectedProduct" 
+(onAdd)="addToCart($event)"
+(onClose)="closeDialog()">
+</app-product-quantity-dialog>
+
+
+<section class="shop-banner">
+    <div class="shop-banner-content">
+      <h2>Explore Our Products</h2>
+      <p>Browse and add your favorite items to the cart</p>
+    </div>
+  </section>
+  
+  <!-- Loading Spinner -->
+  <p *ngIf="loading" class="loading-text">Loading products...</p>
+  
+  <!-- Product Table Section -->
+  <section class="shop-products" *ngIf="products && products.length > 0">
+    <p-card header="Available Products" class="product-card">
+      <p-table [value]="products" [paginator]="true" [rows]="5" [responsiveLayout]="'scroll'">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Action</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+          <tr>
+            <td>{{ product.productName }}</td>
+            <td>{{ product.productCategory }}</td>
+            <td>{{ product.unitPrice | currency }}</td>
+            <td>
+              <button pButton (click)="showAddToCartDialog(product)">Add to Cart</button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-card>
+  </section>
+  
+  <!-- No Products Message -->
+  <p *ngIf="products.length === 0" class="no-products-text">No products available.</p>
+  

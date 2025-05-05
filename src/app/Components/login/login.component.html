@@ -1,0 +1,96 @@
+<div class="login-container p-fluid">
+  <div class="login-card p-card">
+    <div class="p-card-header">
+      <img src="assets/logo.png" alt="Company Logo" class="logo">
+      <h1>Welcome Back</h1>
+      <p class="subtitle">Please enter your credentials to login</p>
+    </div>
+
+    <div class="p-card-content">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <!-- Email Field -->
+        <div class="p-field">
+          <label for="email">Email Address</label>
+          <span class="p-input-icon-left">
+            <i class="pi pi-envelope"></i>
+            <input 
+              pInputText 
+              id="email" 
+              formControlName="email" 
+              placeholder="Enter your email"
+              [ngClass]="{'p-invalid': email?.invalid && (email?.dirty || email?.touched)}"
+              aria-describedby="email-error"
+            />
+          </span>
+          <small id="email-error" class="p-error" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+            <span *ngIf="email?.errors?.['required']">Email is required</span>
+            <span *ngIf="email?.errors?.['email']">Please enter a valid email</span>
+          </small>
+        </div>
+
+        <!-- Password Field -->
+        <div class="p-field">
+          <label for="password">Password</label>
+          <span class="p-input-icon-right">
+            <i 
+              class="pi" 
+              [ngClass]="passwordVisible ? 'pi-eye-slash' : 'pi-eye'" 
+              (click)="passwordVisible = !passwordVisible"
+            ></i>
+            <input 
+              pInputText 
+              id="password" 
+              formControlName="password" 
+              [type]="passwordVisible ? 'text' : 'password'"
+              placeholder="Enter your password"
+              [ngClass]="{'p-invalid': password?.invalid && (password?.dirty || password?.touched)}"
+              aria-describedby="password-error"
+            />
+          </span>
+          <small id="password-error" class="p-error" *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+            <span *ngIf="password?.errors?.['required']">Password is required</span>
+            <span *ngIf="password?.errors?.['minlength']">Minimum 6 characters required</span>
+          </small>
+        </div>
+
+        <!-- Remember Me & Forgot Password -->
+        <div class="flex justify-content-between align-items-center mb-4">
+          <div class="flex align-items-center">
+            <p-checkbox [binary]="true" inputId="remember"></p-checkbox>
+            <label for="remember" class="ml-2">Remember me</label>
+          </div>
+          <a routerLink="/forgot-password" class="text-sm">Forgot password?</a>
+        </div>
+
+        <!-- Submit Button -->
+        <button 
+          pButton 
+          type="submit" 
+          label="Login" 
+          class="w-full" 
+          [disabled]="loginForm.invalid || isLoading"
+          [loading]="isLoading"
+        ></button>
+
+        <!-- Divider -->
+        <div class="divider">
+          <span>or</span>
+        </div>
+
+        <!-- Social Login -->
+        <div class="social-login">
+          <button pButton pRipple type="button" icon="pi pi-google" class="p-button-outlined"></button>
+          <button pButton pRipple type="button" icon="pi pi-facebook" class="p-button-outlined"></button>
+          <button pButton pRipple type="button" icon="pi pi-twitter" class="p-button-outlined"></button>
+        </div>
+
+        <!-- Register Link -->
+        <p class="text-center mt-4">
+          Don't have an account? <a routerLink="/register" class="font-semibold">Sign up</a>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <p-toast position="top-right"></p-toast>
+</div>
