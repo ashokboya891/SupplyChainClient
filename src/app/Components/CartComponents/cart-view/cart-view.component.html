@@ -1,51 +1,58 @@
-<div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-xl mt-10">
-  <h2 class="text-2xl font-bold mb-6 text-gray-800">🛒 Your Cart</h2>
-
-  <div *ngIf="cartItems.length === 0" class="text-center text-gray-500">
-    <p>Your cart is empty.</p>
-  </div>
-
-  <div *ngIf="cartItems.length > 0" class="overflow-x-auto">
-    <table class="min-w-full bg-white border border-gray-200 rounded-md">
-      <thead class="bg-gray-100 text-gray-700">
-        <tr>
-          <th class="py-3 px-4 text-left">Product Name</th>
-          <th class="py-3 px-4 text-left">Price (Dollars)</th>
-          <th class="py-3 px-4 text-left">Quantity</th>
-          <th class="py-3 px-4 text-left">Total (Dollars)</th>
-          <th class="py-3 px-4 text-left">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of cartItems" class="border-t">
-          <td class="py-3 px-4">{{ item.productName }}</td>
-          <td class="py-3 px-4">{{ item.price|currency}}</td>
-          <td class="py-3 px-4 flex items-center gap-2">
-            <button (click)="updateQuantity(item, 'decrease')"
-              class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-2 rounded">
-              −
-            </button>
-            <span>{{ item.quantity }}</span>
-            <button (click)="updateQuantity(item, 'increase')"
-              class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-2 rounded">
-              +
-            </button>
-          </td>
-          <td class="py-3 px-4">{{ item.price * item.quantity|currency}}</td>
-          <td class="py-3 px-4">
-            <button (click)="removeFromCart(item.productId)"
-              class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded shadow">
-              Remove
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="text-right mt-6">
-      <h3 class="text-xl font-semibold text-gray-800">
-        Total Price: <span class="text-green-600">{{ totalPrice|currency}}</span>
-      </h3>
+<div class="max-w-4xl mx-auto p-6 bg-white shadow-xl rounded-xl mt-10">
+    <h2 class="text-3xl font-bold mb-6 text-gray-800 flex items-center">
+      🛒 <span class="ml-2">Your Cart</span>
+    </h2>
+  
+    <div *ngIf="cartItems.length === 0" class="text-center text-gray-500">
+      <p>Your cart is empty.</p>
+    </div>
+  
+    <div *ngIf="cartItems.length > 0" class="overflow-x-auto">
+      <table class="min-w-full bg-white border border-gray-300 rounded-md">
+        <thead class="bg-gray-100 text-gray-700">
+          <tr>
+            <th class="py-3 px-4 text-left">Product</th>
+            <th class="py-3 px-4 text-left">Price</th>
+            <th class="py-3 px-4 text-left">Quantity</th>
+            <th class="py-3 px-4 text-left">Total</th>
+            <th class="py-3 px-4 text-left">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of cartItems" class="border-t hover:bg-gray-50 transition">
+            <td class="py-3 px-4 font-medium">{{ item.productName }}</td>
+            <td class="py-3 px-4">{{ item.price | currency:'INR':'symbol' }}</td>
+            <td class="py-3 px-4">
+              <div class="flex items-center space-x-2">
+                <button (click)="updateQuantity(item, 'decrease')"
+                  class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 rounded">
+                  −
+                </button>
+                <span class="w-6 text-center">{{ item.quantity }}</span>
+                <button (click)="updateQuantity(item, 'increase')"
+                  class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 rounded">
+                  +
+                </button>
+              </div>
+            </td>
+            <td class="py-3 px-4">
+              {{ item.price * item.quantity | currency:'INR':'symbol' }}
+            </td>
+            <td class="py-3 px-4">
+              <button (click)="removeFromCart(item.productId)"
+                class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded shadow">
+                Remove
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <div class="text-right mt-6">
+        <h3 class="text-xl font-semibold text-gray-800">
+          Total: <span class="text-green-600">{{ totalPrice | currency:'INR':'symbol' }}</span>
+        </h3>
+      </div>
     </div>
   </div>
-</div>
+  

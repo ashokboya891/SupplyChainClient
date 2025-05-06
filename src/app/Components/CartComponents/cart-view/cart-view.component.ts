@@ -10,78 +10,70 @@ export class CartViewComponent implements OnInit {
   cartItems: any[] = [];
   totalPrice: number = 0;
   userId: string | null = null;
-  //  userId?:string=sessionStorage.getItem('userId');
 
-  constructor(private ordersService: OrdersService) { }
+  constructor(private ordersService: OrdersService) {}
 
   ngOnInit(): void {
     this.userId = sessionStorage.getItem('userId');
     if (this.userId) {
-      this.ordersService.getCartItems(this.userId).subscribe(
-        (data: any[]) => {
-          this.cartItems = data;
-          this.calculateTotalPrice();
-          console.log('Cart items:', this.cartItems);
-        },
-        (error) => {
-          console.error('Error fetching cart items:', error);
-        }
-      );
+      this.fetchCartItems();
     }
   }
 
+  fetchCartItems() {
+    this.ordersService.getCartItems(this.userId!).subscribe(
+      (data: any[]) => {
+        this.cartItems = data;
+        this.calculateTotalPrice();
+      },
+      (error) => console.error('Error fetching cart items:', error)
+    );
+  }
+
   calculateTotalPrice() {
-    this.totalPrice = this.cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    this.totalPrice = this.cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   }
   updateQuantity(item: any, action: string) {
-    // Modify quantity
     if (action === 'increase') {
       item.quantity++;
     } else if (action === 'decrease' && item.quantity > 1) {
       item.quantity--;
+    } else {
+      return; // prevent decreasing below 1
     }
   
-    // Recalculate total immediately for UI
-    this.calculateTotalPrice();
+    this.calculateTotalPrice(); // Update UI immediately
   
-    // Persist update via API
+    // Now sync to backend
     if (this.userId) {
       this.ordersService.updateCartItem(this.userId, item.productId, item.quantity).subscribe(
-        () => {
-          // Optionally re-fetch data here, or just leave it since UI is already updated
-        },
-        (error: any) => console.error('Error updating quantity:', error)
+        () => {},
+        (error) => console.error('Error updating quantity:', error)
       );
     }
   }
   
   // updateQuantity(item: any, action: string) {
-  //   // Update quantity based on the action
-  //   if (action === 'increase') {
-  //     item.quantity++;
-  //   } else if (action === 'decrease' && item.quantity > 1) {
-  //     item.quantity--;
-  //   }
+  //   const updatedQuantity = action === 'increase' ? item.quantity + 1 : item.quantity - 1;
 
-  //   // Call the service to update the cart item quantity
-  //   if (this.userId) {
-  //     this.ordersService.updateCartItem(this.userId, item.productId, item.quantity).subscribe(
-  //       () => {
-  //         this.calculateTotalPrice();
-  //       },
-  //       (error: any) => console.error('Error updating quantity:', error)
-  //     );
-  //   }
+  //   if (updatedQuantity < 1) return;
+
+  //   this.ordersService.updateCartItem(this.userId!, item.productId, updatedQuantity).subscribe(
+  //     () => {
+  //       item.quantity = updatedQuantity; // Update UI
+  //       this.calculateTotalPrice();      // Recalculate
+  //     },
+  //     (error) => console.error('Error updating quantity:', error)
+  //   );
   // }
 
-  // Optionally, you can implement removeFromCart to handle removing items from the cart
   removeFromCart(itemId: string) {
     this.ordersService.removeFromCart(this.userId!, itemId).subscribe(
       () => {
         this.cartItems = this.cartItems.filter(item => item.productId !== itemId);
         this.calculateTotalPrice();
       },
-      (error: any) => console.error('Error removing item:', error)
+      (error) => console.error('Error removing item:', error)
     );
   }
 }

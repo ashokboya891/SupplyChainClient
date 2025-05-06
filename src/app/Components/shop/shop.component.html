@@ -36,7 +36,7 @@
           <tr>
             <td>{{ product.productName }}</td>
             <td>{{ product.productCategory }}</td>
-            <td>{{ product.unitPrice | currency }}</td>
+            <td>{{ product.unitPrice |  currency:'INR':'symbol'  }}</td>
             <td>
               <button pButton (click)="showAddToCartDialog(product)">Add to Cart</button>
             </td>
