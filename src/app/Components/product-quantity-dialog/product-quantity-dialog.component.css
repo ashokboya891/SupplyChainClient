@@ -1,19 +1,61 @@
+:host ::ng-deep .p-dialog {
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header {
+  background: #f5f5f5;
+  color: #333;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #ddd;
+}
+
 .product-details {
-    margin-bottom: 1rem;
-  }
-  
-  .product-details h3 {
-    margin-top: 0;
-    color: var(--primary-color);
-  }
-  
-  .quantity-input {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin: 1rem 0;
-  }
-  
-  .quantity-input label {
-    font-weight: 500;
-  }
+  padding: 1rem;
+  text-align: left;
+  background: #fafafa;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.product-details h3 {
+  margin-top: 0;
+  color: #007ad9;
+}
+
+.product-details p {
+  margin: 0.3rem 0;
+  font-size: 15px;
+  color: #555;
+}
+
+.quantity-input {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.quantity-input label {
+  font-weight: 500;
+  font-size: 15px;
+  color: #333;
+}
+
+:host ::ng-deep .p-inputnumber {
+  width: 120px;
+}
+
+:host ::ng-deep .p-dialog-footer {
+  padding: 1rem 1.5rem;
+  background: #f9f9f9;
+  border-top: 1px solid #eee;
+}
+
+:host ::ng-deep .p-button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 500;
+}

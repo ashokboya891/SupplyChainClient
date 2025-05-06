@@ -27,13 +27,7 @@ export class ShopComponent  implements OnInit {
       }
     );
   }
-  addTOCart(product: Product) {
-    // this.ordersService.addToCart(product);
-    console.log('Product added to cart:', product);
-  }
 
-  // products: Product[] = [];
-  // loading: boolean = false;
   selectedProduct: Product | null = null;
 
   showAddToCartDialog(product: Product) {
@@ -41,10 +35,11 @@ export class ShopComponent  implements OnInit {
   }
 
   addToCart(event: {product: Product, quantity: number}) {
-    // Your cart service logic here
-    console.log(`Adding ${event.quantity} of ${event.product.productName} to cart with quantity ${event.quantity}`);
-    this.selectedProduct = null; // Close the dialog
+    this.ordersService.addToCart(event.product, event.quantity);
+    console.log(`Adding ${event.quantity} of ${event.product.productName} to cart`);
+    this.selectedProduct = null;
   }
+  
 
   closeDialog() {
     this.selectedProduct = null;

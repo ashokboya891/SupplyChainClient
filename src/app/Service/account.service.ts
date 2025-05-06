@@ -60,7 +60,7 @@ export class AccountService {
     const token = localStorage.getItem("token");
     const refreshToken = localStorage.getItem("refreshToken");
 
-    return this.httpClient.post<any>(`${API_BASE_URL}generate-new-jwt-token`, { token, refreshToken }).pipe(
+    return this.httpClient.post<any>(`${API_BASE_URL}/generate-new-jwt-token`, { token, refreshToken }).pipe(
       tap(response => {
         if (response.token) {
           localStorage.setItem("token", response.token);

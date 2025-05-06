@@ -2,7 +2,7 @@
 <p-dialog header="Add to Cart" [(visible)]="display" [modal]="true" [style]="{width: '350px'}" (onHide)="close()">
     <div class="product-details">
       <h3>{{product?.productName}}</h3>
-      <p><strong>Price:</strong> {{product?.unitPrice | currency}}</p>
+      <p><strong>Price:</strong>{{product?.unitPrice | currency}}</p>
       <p><strong>Category:</strong> {{product?.stock}}</p>
     </div>
   
